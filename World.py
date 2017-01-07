@@ -56,7 +56,7 @@ while True:
 	green_x = np.random.randint(0, x)
 	green_y = np.random.randint(0, y)
 	
-	if (green_x, green_y) not in walls and (green_x, green_y) not in player:
+	if (green_x, green_y) not in walls and (green_x, green_y) not in player and (green_x, green_y) not in specials:
 		break
 	
 specials.append((green_x, green_y, "green", 1))	
