@@ -2,11 +2,18 @@ __author__ = 'philippe'
 import World
 import threading
 import time
+import matplotlib.pyplot as plt
 
 discount = 0.3
 actions = World.actions
 states = []
 Q = {}
+plot_x = []
+plot_y = []
+plt.plot([], [])
+plt.ion()
+plt.show()
+
 for i in range(World.x):
     for j in range(World.y):
         states.append((i, j))
@@ -59,33 +66,37 @@ def inc_Q(s, a, alpha, inc):
 
 
 def run():
-    global discount
-    time.sleep(0.001)
-    alpha = 1
-    t = 1
-    while True:
-        # Pick the right action
-        s = World.player
-        max_act, max_val = max_Q(s)
-        (s, a, r, s2) = do_action(max_act)
+	global discount
+	time.sleep(0.001)
+	alpha = 1
+	t = 1
+	while True:
+		# Pick the right action
+		s = World.player
+		max_act, max_val = max_Q(s)
+		(s, a, r, s2) = do_action(max_act)
 
-        # Update Q
-        max_act, max_val = max_Q(s2)
-        inc_Q(s, a, alpha, r + discount * max_val)
+		# Update Q
+		max_act, max_val = max_Q(s2)
+		inc_Q(s, a, alpha, r + discount * max_val)
+		
+		# Check if the game has restarted
+		t += 1.0
+		score = World.score
+		if World.has_restarted():
+			World.restart_game()
+			time.sleep(0.001)
+			t = 1.0
+			plot_x.append(World.iteration)
+			plot_y.append(score)
+			plt.plot(plot_x, plot_y, color="black")
+			plt.draw()
 
-        # Check if the game has restarted
-        t += 1.0
-        if World.has_restarted():
-            World.restart_game()
-            time.sleep(0.01)
-            t = 1.0
+		# Update the learning rate
+		alpha = pow(t, -0.1)
 
-        # Update the learning rate
-        alpha = pow(t, -0.1)
-
-        # MODIFY THIS SLEEP IF THE GAME IS GOING TOO FAST.
-        time.sleep(0)
-
+		# MODIFY THIS SLEEP IF THE GAME IS GOING TOO FAST.
+		time.sleep(0)
 
 t = threading.Thread(target=run)
 t.daemon = True

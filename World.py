@@ -1,12 +1,13 @@
 __author__ = 'philippe'
 from Tkinter import *
 import numpy as np
+import time
 master = Tk()
 
 iteration = 1
 triangle_size = 0.1
-cell_score_min = -0.2
-cell_score_max = 0.2
+cell_score_min = -9999
+cell_score_max = 9999
 Width = 15
 (x, y) = (50, 50)
 position = [[0 for i in range(x)] for j in range(y)]
@@ -17,7 +18,7 @@ board = Canvas(master, width=x*Width, height=y*Width)
 player = (0, y-1)
 score = 1
 restart = False
-walk_reward = -0.04
+walk_reward = -0.01
 
 # Generate a random set of walls
 
@@ -48,18 +49,18 @@ for i in range(number_of_red):
 		if (red_x, red_y) not in walls and (red_x, red_y) not in player and (red_x, red_y) not in specials:
 			break
 	
-	specials.append((red_x, red_y, "red", -1))
+	specials.append((red_x, red_y, "red", -10))
 
 # Generate random green rectangle
 
 while True:
-	green_x = np.random.randint(0, x)
-	green_y = np.random.randint(0, y)
+	green_x = np.random.randint(40, x)
+	green_y = np.random.randint(0, y-40)
 	
 	if (green_x, green_y) not in walls and (green_x, green_y) not in player and (green_x, green_y) not in specials:
 		break
 	
-specials.append((green_x, green_y, "green", 1))	
+specials.append((green_x, green_y, "green", 100))	
 
 cell_scores = {}
 
@@ -114,7 +115,7 @@ def set_cell_score(state, action, val):
 	if len(green) == 1:
 		green += "0"
 	color = "#" + red + green + "00"
-	#board.itemconfigure(triangle, fill=color)
+	board.itemconfigure(triangle, fill=color)
 
 
 def try_move(dx, dy):
