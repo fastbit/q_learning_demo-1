@@ -17,5 +17,6 @@ Screenshots:
 
 ![alt tag](https://github.com/berdy1337/q_learning_demo/blob/master/figure_1.png)
 
-Close to 300 iterations the bot will find the green tile (score increases close to 100 points).
-However the bot will get stuck close to the starting tile after approx. 500 iterations. As seen in the chart, the score will then drop significantly before it will plummet to approx. -2000 points. The blue colored tiles indicate where the bot gets stuck.
+Close to 300 iterations the bot will find the green tile (score increases by 100 points).
+However the bot will get stuck in the bottom left corner (close to the starting tile) after approx. 500 iterations. As seen in the chart, the score will then drop significantly before it will plummet to approx. -2000 points. 
+The blue colored tiles indicate where the bot gets stuck then.
