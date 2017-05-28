@@ -21,7 +21,8 @@ for i in range(World.x):
 for state in states:
     temp = {}
     for action in actions:
-        temp[action] = 0.1
+        #temp[action] = 0.1
+	temp[action] = 10
         World.set_cell_score(state, action, temp[action])
     Q[state] = temp
 
