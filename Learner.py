@@ -4,7 +4,7 @@ import threading
 import time
 import matplotlib.pyplot as plt
 
-discount = 0.3
+discount = 1
 actions = World.actions
 states = []
 Q = {}
@@ -78,7 +78,7 @@ def run():
 
 		# Update Q
 		max_act, max_val = max_Q(s2)
-		inc_Q(s, a, alpha, r + discount * max_val)
+		inc_Q(s, a, 1, r + discount * max_val)
 		
 		# Check if the game has restarted
 		t += 1.0
