@@ -6,8 +6,11 @@ master = Tk()
 
 iteration = 1
 triangle_size = 0.1
-cell_score_min = -9999
-cell_score_max = 9999
+#cell_score_min = -9999
+#cell_score_max = 9999
+cell_score_min = -1
+cell_score_max = 10
+
 Width = 15
 (x, y) = (50, 50)
 position = [[0 for i in range(x)] for j in range(y)]
